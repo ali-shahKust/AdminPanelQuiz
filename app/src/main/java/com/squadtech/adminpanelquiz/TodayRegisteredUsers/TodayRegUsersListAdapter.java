@@ -1,6 +1,7 @@
 package com.squadtech.adminpanelquiz.TodayRegisteredUsers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,12 +40,7 @@ public class TodayRegUsersListAdapter extends RecyclerView.Adapter<TodayRegUsers
         holder.username.setText(modelofusers.getUser_name());
         holder.email.setText(modelofusers.getUser_email());
         Picasso.get().load(modelofusers.getUser_dp()).placeholder(R.drawable.ic_menu_camera).into(holder.imageView);
-        holder.viewdetailsBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(mContext, "View Clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
     @Override
@@ -55,7 +51,7 @@ public class TodayRegUsersListAdapter extends RecyclerView.Adapter<TodayRegUsers
     public class Viewholder extends RecyclerView.ViewHolder
     {
         ImageView imageView;
-        TextView username, email, viewdetailsBTN;
+        TextView username, email;
 
         public Viewholder( View itemView) {
             super(itemView);
@@ -63,8 +59,6 @@ public class TodayRegUsersListAdapter extends RecyclerView.Adapter<TodayRegUsers
             imageView = (ImageView)itemView.findViewById(R.id.user_profile_img);
             username = (TextView)itemView.findViewById(R.id.username_id);
             email = (TextView)itemView.findViewById(R.id.useremail_id);
-            viewdetailsBTN = (TextView)itemView.findViewById(R.id.view_details_id);
-
 
         }
     }

@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_margin="20dp"
+    android:layout_margin="10dp"
     android:layout_height="100dp">
 
 
@@ -33,7 +33,7 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="2.2"
+            android:layout_weight="3"
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
@@ -59,27 +59,6 @@
                 />
 
         </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="0.8"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/view_details_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="VIEW"
-            android:textSize="16dp"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"
-            />
-
-
-    </LinearLayout>
 
         </LinearLayout>
 

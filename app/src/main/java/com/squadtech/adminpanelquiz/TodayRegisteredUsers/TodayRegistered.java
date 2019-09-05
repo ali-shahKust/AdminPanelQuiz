@@ -42,11 +42,6 @@ public class TodayRegistered extends AppCompatActivity {
         getSupportActionBar().setTitle("Today Registered");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//        final String SaveCurrentDate;
-////        Calendar calendar = Calendar.getInstance();
-////        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
-////        SaveCurrentDate = currentDate.format(calendar.getTime());
-
         final String date = DateFormat.getDateInstance().format(new Date());
 
         mAuth = FirebaseAuth.getInstance();

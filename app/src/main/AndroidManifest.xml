@@ -15,12 +15,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TodayRegisteredUsers.TodayRegistered"
+        <activity android:name=".UsersProfile.UserProfile_Activity"></activity>
+        <activity
+            android:name=".TodayRegisteredUsers.TodayRegistered"
             android:parentActivityName=".NavigationActivity"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".AllUsers.AllUsersList_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AllUsers.AllUsersList_Activity"
             android:parentActivityName=".NavigationActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity android:name=".AnalyticalQuestionsRV" />
         <activity android:name=".LogicalCategoryRV" />
         <activity android:name=".ETEACategoryRV" />
