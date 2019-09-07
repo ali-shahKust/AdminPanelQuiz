@@ -6,11 +6,16 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.service.autofill.Dataset;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.SearchView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,24 +51,6 @@ public class AllUsersList_Activity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         dbReference = FirebaseDatabase.getInstance().getReference().child("Users");
 
-//        EditText search_users = findViewById(R.id.search_users);
-//        search_users.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                searchUsers(charSequence.toString().toLowerCase());
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//
-//            }
-//        });
-
         allusers_rv = findViewById(R.id.all_users_RV);
         allusers_rv.hasFixedSize();
         allusers_rv.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -91,36 +78,40 @@ public class AllUsersList_Activity extends AppCompatActivity
 
             }
         });
-
     }
 
-//    private void searchUsers(String a)
-//    {
-//        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-//        Query query = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("search").startAt(a).endAt(a+"\uf8ff");
-//        query.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                arrayList.clear();
-//                for(DataSnapshot ds : dataSnapshot.getChildren())
-//                {
-//                    Alluserslist_Model model = ds.getValue(Alluserslist_Model.class);
-//                    assert model != null;
-//                    assert firebaseUser != null;
-//                    if(!model.getId().equals(firebaseUser.getUid()))
-//                    {
-//                        arrayList.add(model);
-//                    }
-//                }
-//                adapter_users = new AllUsersListAdapter(getApplicationContext(), arrayList);
-//                allusers_rv.setAdapter(adapter_users);
-//                adapter_users.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.navigation, menu);
+
+        MenuItem searchItem = menu.findItem(R.id.search_view);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s)
+            {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s)
+            {
+                adapter_users.getFilter().filter(s);
+                return false;
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.search_view)
+        {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

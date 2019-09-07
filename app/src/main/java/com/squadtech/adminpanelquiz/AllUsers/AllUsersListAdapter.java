@@ -6,6 +6,8 @@ import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,9 +21,10 @@ import com.squareup.picasso.Picasso;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.Inflater;
 
-public class AllUsersListAdapter extends RecyclerView.Adapter<AllUsersListAdapter.Viewholder>
+public class AllUsersListAdapter extends RecyclerView.Adapter<AllUsersListAdapter.Viewholder> implements Filterable
 {
     private Context mContext;
     private ArrayList<Alluserslist_Model> alist;
@@ -52,6 +55,43 @@ public class AllUsersListAdapter extends RecyclerView.Adapter<AllUsersListAdapte
     public int getItemCount() {
         return alist.size();
     }
+
+    @Override
+    public Filter getFilter()
+    {
+        return exampleFilter;
+    }
+    private Filter exampleFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            ArrayList<Alluserslist_Model> filteredList = new ArrayList<>();
+            if(charSequence == null || charSequence.length() == 0)
+            {
+                filteredList.addAll(alist);
+            }
+            else
+            {
+                String filterPattern = charSequence.toString().toLowerCase().trim();
+                for (Alluserslist_Model alluserslist_model_items : alist)
+                {
+                    if(alluserslist_model_items.getUser_name().toLowerCase().contains(filterPattern))
+                    {
+                        filteredList.add(alluserslist_model_items);
+                    }
+                }
+            }
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filteredList;
+
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            alist.clear();
+            alist.addAll((List)filterResults.values);
+        }
+    };
 
     public class Viewholder extends RecyclerView.ViewHolder
     {
